@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/**
+ * Used for calibrating music offset
+ */
 public class RhythmAnalyzer
 {
 	private float bpm;
@@ -21,18 +24,18 @@ public class RhythmAnalyzer
 	{
 		float offset = 0.0f;
 			
-		if (samples.length > 0)
+		if (samples.Count > 0)
 		{
-			for (int i= 0; i < samples.length; i++)
+			for (int i= 0; i < samples.Count; i++)
 			{
 				float tap = samples[i];
 				tap %= 1;
-				tap -= 0.5;
+				tap -= 0.5f;
 					
 				offset += tap;
 			}
 				
-			offset /= samples.length;
+			offset /= samples.Count;
 		}
 			
 		return offset;
@@ -43,7 +46,7 @@ public class RhythmAnalyzer
 	 */
 	public float CalculateOffsetWith(float currentOffset)
 	{
-		float offset = GetAverageOffset;
+		float offset = GetAverageOffset();
 		offset += currentOffset;
 		
 		return offset;
