@@ -13,7 +13,7 @@ public class RhythmAnalyzer
 
 	public RhythmAnalyzer(float bpm)
 	{
-		this.bpm = bpm;
+		//this.bpm = bpm;
 		this.samples = new List<float>();
 	}
 		
