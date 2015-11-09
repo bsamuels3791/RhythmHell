@@ -8,7 +8,9 @@ public class RhythmTracker : RhythmObject
     public const float OK_OFFSET = 0.25f;
 
     public float globalOffset = 0;
-	public float score = 0;
+	public float perfectCount = 0;
+	public float okCount = 0;
+
 	// Update is called once per frame
 	void Update ()
     {
@@ -20,20 +22,22 @@ public class RhythmTracker : RhythmObject
 
             if (keyHitBeat < PERFECT_OFFSET || keyHitBeat > 1 - PERFECT_OFFSET)
             {
-				score = score + 2;
+				perfectCount = perfectCount + 1;
                 GameObject.Find("Rating").GetComponent<Text>().text = "PERFECT!";
+				GameObject.Find("PerfectCount").GetComponent<Text>().text = "Perfects: " + perfectCount.ToString();
             }
             else if (keyHitBeat < OK_OFFSET || keyHitBeat > 1 - OK_OFFSET)
             {
-				score = score + 1;
+				okCount = okCount + 1;
 				GameObject.Find("Rating").GetComponent<Text>().text = "OK";
-            }
+				GameObject.Find("OkCount").GetComponent<Text>().text = "Ok's: " + okCount.ToString();
+			}
             else
             {
                 GameObject.Find("Rating").GetComponent<Text>().text = "Boo!";
             }
 
-			GameObject.Find("Score").GetComponent<Text>().text = "Score: " + score.ToString();
+
 
             Debug.Log(keyHitBeat);
         }
