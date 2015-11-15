@@ -13,6 +13,7 @@ public class FlyingHand : RhythmObject {
 	public float speed = 0;
 
 	private int previousBeat;
+	private float previousHalfBeat;
 
 	// Use this for initialization
 	void Start () {
@@ -20,17 +21,20 @@ public class FlyingHand : RhythmObject {
 		// so that the Rhythm Object will immediately update because it thinks the
 		// beat machine is changing from the previous beat to the current beat
 		previousBeat = (int)beatMachine.GetBeatPosition() - 1;
+		previousHalfBeat = (int)beatMachine.GetBeatPosition() - 1;
+		speed = beatMachine.bpm / 60.0f; // speed = beats per second
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		// This code seems to get the hand sliding at the proper pace
 		/*
 		if(gameObject.transform.position.y > 3.0f){
 			gameObject.transform.position = new Vector3(-8,-4.0f,0);
 		}
-		gameObject.transform.Translate(0,speed*Time.deltaTime,0,Space.World);
-		 */
+		gameObject.transform.Translate(0,2*speed*Time.deltaTime,0,Space.World);
+		*/
 
 		//Checks the input
 		if (Input.GetKeyDown(KeyCode.Space))
@@ -63,11 +67,16 @@ public class FlyingHand : RhythmObject {
 		}
 
 		int currentBeat = (int)beatMachine.GetBeatPosition();
+		//float floatBeat = beatMachine.GetBeatPosition();
+		float halfBeat = Mathf.Floor (beatMachine.GetBeatPosition() * 2) * 0.5f;
 		
-		if (previousBeat != currentBeat)
-		{
-			OnBeat(beatMachine.GetMeasure(), currentBeat);
+		if (previousBeat != currentBeat) {
+			OnBeat (beatMachine.GetMeasure (), currentBeat);
 			previousBeat = currentBeat;
+		} 
+		if (previousHalfBeat != halfBeat) {
+			OnHalfBeat(beatMachine.GetMeasure(), halfBeat, currentBeat);
+			previousHalfBeat = halfBeat;
 		}
 	}
 
@@ -79,8 +88,42 @@ public class FlyingHand : RhythmObject {
 		// Check if a new beat has started
 		if ((int)beat != previousBeat)
 		{
-			// Hand will reset to SAUCE position every 4 beats
+			// Hand will reset to SAUCE position every 4 measures
+			//gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2*measure % 8), 0.0f);
+			// Reset every 4 beats
 			gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2*beat), 0.0f);
+
+			// Scale hand on each beat
+			/*float scalePct = 175.0f - (25*(beat % 4));
+			scalePct /= 100.0f;
+
+			gameObject.transform.localScale = new Vector3 (scalePct, scalePct);*/
+
+			/*if(beat == 0){
+				gameObject.transform.localScale = new Vector3(1.75f, 1.75f);
+			}
+			else if(beat == 1){
+				gameObject.transform.localScale = new Vector3(1.5f, 1.5f);
+			}
+			else if(beat == 2){
+				gameObject.transform.localScale = new Vector3(1.25f, 1.25f);
+			}
+			else{
+				gameObject.transform.localScale = new Vector3(1.0f, 1.0f);
+			}*/
+		}
+	}
+
+	void OnHalfBeat(int measure, float beatAbs, int beatInt){
+		if (beatAbs - beatInt < 0.5f) {
+			gameObject.transform.localScale = new Vector3(1.5f, 1.5f);
+			//gameObject.transform.Translate(0.0f, -0.5f, 0.0f);
+			gameObject.transform.position = new Vector3(-10.0f, gameObject.transform.position.y, gameObject.transform.position.z);
+		}
+		else {
+			gameObject.transform.localScale = new Vector3(1.0f, 1.0f);
+			//gameObject.transform.Translate(0.0f, 0.5f, 0.0f);
+			gameObject.transform.position = new Vector3(-8.0f, gameObject.transform.position.y, gameObject.transform.position.z);
 		}
 	}
 }
