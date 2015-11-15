@@ -5,7 +5,7 @@ public class FlyingHand : RhythmObject {
 
 	public const float PERFECT_OFFSET = 0.125f;
 	public const float OK_OFFSET = 0.25f;
-	
+
 	public float globalOffset = 0;
 	public float perfectCount = 0;
 	public float okCount = 0;
@@ -13,8 +13,12 @@ public class FlyingHand : RhythmObject {
 	public float speed = 0;
 
 	// Use this for initialization
-	void Start () { }
-	
+	void Start () {
+		/*
+		globalOffset = GameObject.Find("//Something//").GetComponent<Script>().offset;
+		*/
+	 }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -28,7 +32,7 @@ public class FlyingHand : RhythmObject {
 		{
 			// The beat when the key was hit
 			float keyHitBeat = beatMachine.GetBeatPosition(beatMachine.globalOffset) % 1;
-			
+
 			if (keyHitBeat < PERFECT_OFFSET || keyHitBeat > 1 - PERFECT_OFFSET)
 			{
 				perfectCount = perfectCount + 1;
@@ -46,9 +50,9 @@ public class FlyingHand : RhythmObject {
 				booCount = booCount + 1;
 			//	GameObject.Find("Rating").GetComponent<Text>().text = "Boo!";
 			}
-			
-			
-			
+
+
+
 			Debug.Log(keyHitBeat);
 		}
 	}
