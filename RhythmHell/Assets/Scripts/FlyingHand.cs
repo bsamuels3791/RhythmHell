@@ -36,9 +36,12 @@ public class FlyingHand : RhythmObject {
 		gameObject.transform.Translate(0,2*speed*Time.deltaTime,0,Space.World);
 		*/
 
+		int currentBeat = (int)beatMachine.GetBeatPosition();
+
 		//Checks the input
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
+
 			// The beat when the key was hit
 			float keyHitBeat = beatMachine.GetBeatPosition(beatMachine.globalOffset) % 1;
 			
@@ -46,6 +49,7 @@ public class FlyingHand : RhythmObject {
 			{
 				perfectCount = perfectCount + 1;
 				Debug.Log("Perfect");
+
 			//	GameObject.Find("Rating").GetComponent<Text>().text = "PERFECT!";
 			//	GameObject.Find("PerfectCount").GetComponent<Text>().text = "Perfects: " + perfectCount.ToString();
 			}
@@ -66,7 +70,6 @@ public class FlyingHand : RhythmObject {
 			//Debug.Log(keyHitBeat);
 		}
 
-		int currentBeat = (int)beatMachine.GetBeatPosition();
 		//float floatBeat = beatMachine.GetBeatPosition();
 		float halfBeat = Mathf.Floor (beatMachine.GetBeatPosition() * 2) * 0.5f;
 		
