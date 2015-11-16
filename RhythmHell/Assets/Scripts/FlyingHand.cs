@@ -23,11 +23,11 @@ public class FlyingHand : RhythmObject {
 		previousBeat = (int)beatMachine.GetBeatPosition() - 1;
 		previousHalfBeat = (int)beatMachine.GetBeatPosition() - 1;
 		speed = beatMachine.bpm / 60.0f; // speed = beats per second
+
 		/*
 		globalOffset = GameObject.Find("//Something//").GetComponent<Script>().offset;
 		*/
 	 }
-
 
 	// Update is called once per frame
 	void Update () {
@@ -69,8 +69,7 @@ public class FlyingHand : RhythmObject {
 				booCount = booCount + 1;
 				Debug.Log ("Boo");
 			//	GameObject.Find("Rating").GetComponent<Text>().text = "Boo!";
-			}
-			
+			}			
 			//Debug.Log(keyHitBeat);
 		}
 
