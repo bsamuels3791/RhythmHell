@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FlyingHand : RhythmObject {
 
 	public const float PERFECT_OFFSET = 0.125f;
 	public const float OK_OFFSET = 0.25f;
-	
+
 	public float globalOffset = 0;
 	public float perfectCount = 0;
 	public float okCount = 0;
 	public float booCount = 0;
 	public float speed = 0;
+	public Ingredient veggie;
+	public Ingredient sausage;
+	public Ingredient cheese;
+	public Ingredient sauce;
+
 
 	private int previousBeat;
 	private float previousHalfBeat;
@@ -23,8 +29,12 @@ public class FlyingHand : RhythmObject {
 		previousBeat = (int)beatMachine.GetBeatPosition() - 1;
 		previousHalfBeat = (int)beatMachine.GetBeatPosition() - 1;
 		speed = beatMachine.bpm / 60.0f; // speed = beats per second
-	}
-	
+
+		/*
+		globalOffset = GameObject.Find("//Something//").GetComponent<Script>().offset;
+		*/
+	 }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -41,10 +51,29 @@ public class FlyingHand : RhythmObject {
 		//Checks the input
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
+			// Add the ingredient
+			switch(currentBeat){
+			case 0:
+				sauce.AddThis();
+				break;
+			case 1:
+				cheese.AddThis();
+				break;
+			case 2:
+				sausage.AddThis();
+				break;
+			case 3:
+				veggie.AddThis();
+				break;
+			default:
+				Time.timeScale = 0.0f;
+				break;
+			}
+
 
 			// The beat when the key was hit
 			float keyHitBeat = beatMachine.GetBeatPosition(beatMachine.globalOffset) % 1;
-			
+
 			if (keyHitBeat < PERFECT_OFFSET || keyHitBeat > 1 - PERFECT_OFFSET)
 			{
 				perfectCount = perfectCount + 1;
@@ -65,8 +94,7 @@ public class FlyingHand : RhythmObject {
 				booCount = booCount + 1;
 				Debug.Log ("Boo");
 			//	GameObject.Find("Rating").GetComponent<Text>().text = "Boo!";
-			}
-			
+			}			
 			//Debug.Log(keyHitBeat);
 		}
 
@@ -83,9 +111,9 @@ public class FlyingHand : RhythmObject {
 		}
 	}
 
-	/**
-     * Called when the beat is hit
-     */
+	/*
+    * Called when the beat is hit
+    */
 	void OnBeat(int measure, int beat)
 	{
 		// Check if a new beat has started
@@ -95,9 +123,16 @@ public class FlyingHand : RhythmObject {
 			//gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2*measure % 8), 0.0f);
 			// Reset every 4 beats
 			gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2*beat), 0.0f);
+			// Clear pizza on reset
+			if(beat == 0) {
+				GameObject.Find("veggie_layer").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find("sausage_layer").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
+			}
 
-			// Scale hand on each beat
-			/*float scalePct = 175.0f - (25*(beat % 4));
+			/*// Scale hand on each beat
+			float scalePct = 175.0f - (25*(beat % 4));
 			scalePct /= 100.0f;
 
 			gameObject.transform.localScale = new Vector3 (scalePct, scalePct);*/

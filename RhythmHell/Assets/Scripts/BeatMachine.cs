@@ -6,18 +6,18 @@ public class BeatMachine : MonoBehaviour
 {
 	public const float ERROR_ALLOWANCE = 0.0075f;
 
-    public float bpm = 120;
-    // this.timeSigBeat is only the "numerator" in the time signature
-    // We'll assume the "denominator" is 4
-    public int timeSigBeat = 4;
-    public int offsetBeats = 0;
-    public float globalOffset = 0;
-    
-    private AudioSource source;
+  public float bpm = 120;
+  // this.timeSigBeat is only the "numerator" in the time signature
+  // We'll assume the "denominator" is 4
+  public int timeSigBeat = 4;
+  public int offsetBeats = 0;
+  public float globalOffset = 0;
 
-    // Calculates the current position of the song by finding the difference between
-    // the current time and the time that this BeatMachine was created
-    public int GetAudioPosition()
+  private AudioSource source;
+
+  // Calculates the current position of the song by finding the difference between
+  // the current time and the time that this BeatMachine was created
+  public int GetAudioPosition()
     {
         return (int)(source.time * 1000);
     }
@@ -55,7 +55,7 @@ public class BeatMachine : MonoBehaviour
     {
         source.Play();
     }
-	
+
     /**
      * Resets the Beat Machine
      */
@@ -66,7 +66,7 @@ public class BeatMachine : MonoBehaviour
 		this.offsetBeats = offsetBeats;
         source.Stop();
 	}
-		
+
 	/**
 	 * Gets the position in milliseconds based on the song info given
 	 */
@@ -75,13 +75,13 @@ public class BeatMachine : MonoBehaviour
 		float millisecondsPerBeat = 60000 / bpm;
 		return (offsetBeat + measure * timeSigBeat + beat) * millisecondsPerBeat;
 	}
-	
+
 	public static float InMillisecondsAbsolute(float bpm, int timeSigBeat, float beat)
 	{
 		float millisecondsPerBeat = 60000 / bpm;
 		return beat * millisecondsPerBeat;
 	}
-		
+
 	/**
 	 * Gets the beat position of the song based on the position offset
 	 */
@@ -90,7 +90,7 @@ public class BeatMachine : MonoBehaviour
 		float millisecondsPerBeat = 60000 / bpm;
 		float beat = position / millisecondsPerBeat;
 		beat %= bpm;
-			
+
 		return beat;
 	}
 
