@@ -18,7 +18,7 @@ public class RhythmTracker : RhythmObject
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // The beat when the key was hit
-            float keyHitBeat = beatMachine.GetBeatPosition(beatMachine.globalOffset) % 1;
+            float keyHitBeat = beatMachine.GetBeatPosition(-beatMachine.globalOffset) % 1;
 
             if (keyHitBeat < PERFECT_OFFSET || keyHitBeat > 1 - PERFECT_OFFSET)
             {

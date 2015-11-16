@@ -6,14 +6,12 @@ using System.Collections.Generic;
  */
 public class RhythmAnalyzer
 {
-	private float bpm;
 	private List<float> samples;
 		
 	public List<float> GetSamples() { return samples; }
 
-	public RhythmAnalyzer(float bpm)
+	public RhythmAnalyzer()
 	{
-		//this.bpm = bpm;
 		this.samples = new List<float>();
 	}
 		
