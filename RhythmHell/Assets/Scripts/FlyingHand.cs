@@ -128,7 +128,7 @@ public class FlyingHand : RhythmObject {
 				GameObject.Find("veggie_layer").GetComponent<SpriteRenderer>().enabled = false;
 				GameObject.Find("sausage_layer").GetComponent<SpriteRenderer>().enabled = false;
 				GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
-				GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
+				//GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
 			}
 
 			/*// Scale hand on each beat
