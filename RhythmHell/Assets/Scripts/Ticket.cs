@@ -13,7 +13,7 @@ public class Ticket : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		switch (type) {
+		/*switch (type) {
 			case "Cheese":
 				ticketObj = TicketType.CHEESE;
 				//SetSprite("ticket_cheese");
@@ -26,7 +26,7 @@ public class Ticket : MonoBehaviour {
 				ticketObj = TicketType.VEGGIE;
 				//SetSprite("ticket_veggie");
 				break;
-		}
+		}*/
 	
 	}
 
@@ -36,5 +36,24 @@ public class Ticket : MonoBehaviour {
 		gameObject.GetComponent<SpriteRenderer> ().sprite = changeTemp;
 	}*/
 	
-	public TicketType GetTicketType(){ return ticketObj; }
+	public TicketType GetTicketType(){ 
+		switch (type) {
+		// Default case will fall through to cheese
+		default:
+		case "Cheese":
+			ticketObj = TicketType.CHEESE;
+			//SetSprite("ticket_cheese");
+			break;
+		case "Sausage":
+			ticketObj = TicketType.SAUSAGE;
+			//SetSprite("ticket_sausage");
+			break;
+		case "Veggie":
+			ticketObj = TicketType.VEGGIE;
+			//SetSprite("ticket_veggie");
+			break;
+		}
+
+		return ticketObj; 
+	}
 }
