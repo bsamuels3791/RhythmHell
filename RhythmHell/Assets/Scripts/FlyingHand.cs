@@ -8,18 +8,24 @@ public class FlyingHand : RhythmObject {
 	public const float OK_OFFSET = 0.25f;
 
 	public float globalOffset = 0;
-	public float perfectCount = 0;
-	public float okCount = 0;
-	public float booCount = 0;
 	public float speed = 0;
+	public int perfectCount = 0;
+	public int okCount = 0;
+	public int booCount = 0;
+	public int goodPizzas = 0;
 	public Ingredient veggie;
 	public Ingredient sausage;
 	public Ingredient cheese;
 	public Ingredient sauce;
+	public Ticket ticket;
 
 
 	private int previousBeat;
 	private float previousHalfBeat;
+	private TicketType ticketType;
+
+	private bool[] ingredientsToAdd;
+	private bool[] ingredientsAdded;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +35,9 @@ public class FlyingHand : RhythmObject {
 		previousBeat = (int)beatMachine.GetBeatPosition() - 1;
 		previousHalfBeat = (int)beatMachine.GetBeatPosition() - 1;
 		speed = beatMachine.bpm / 60.0f; // speed = beats per second
+
+		ingredientsToAdd = new bool[3];
+		ingredientsAdded = new bool[3];
 
 		/*
 		globalOffset = GameObject.Find("//Something//").GetComponent<Script>().offset;
@@ -48,6 +57,29 @@ public class FlyingHand : RhythmObject {
 
 		int currentBeat = (int)beatMachine.GetBeatPosition();
 
+		// Only get the ticket on the first beat
+		if (currentBeat == 0) {
+			ticketType = ticket.GetTicketType();
+
+			switch(ticketType){
+				case TicketType.CHEESE:
+					ingredientsToAdd[0] = true;
+					ingredientsToAdd[1] = false;
+					ingredientsToAdd[2] = false;
+					break;
+				case TicketType.SAUSAGE:
+					ingredientsToAdd[0] = true;
+					ingredientsToAdd[1] = true;
+					ingredientsToAdd[2] = false;
+					break;
+				case TicketType.VEGGIE:
+					ingredientsToAdd[0] = true;
+					ingredientsToAdd[1] = false;
+					ingredientsToAdd[2] = true;
+					break;
+			}
+		}
+
 		//Checks the input
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
@@ -58,12 +90,15 @@ public class FlyingHand : RhythmObject {
 				break;
 			case 1:
 				cheese.AddThis();
+				ingredientsAdded[0] = true;
 				break;
 			case 2:
 				sausage.AddThis();
+				ingredientsAdded[1] = true;
 				break;
 			case 3:
 				veggie.AddThis();
+				ingredientsAdded[2] = true;
 				break;
 			default:
 				Time.timeScale = 0.0f;
@@ -129,6 +164,24 @@ public class FlyingHand : RhythmObject {
 				GameObject.Find("sausage_layer").GetComponent<SpriteRenderer>().enabled = false;
 				GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
 				GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
+
+				// Check if pizza was made correctly, then reset ingredient arrays
+				bool pizzaGood = true;
+				for (int i = 0; i < ingredientsToAdd.Length; i++){
+					if(ingredientsToAdd[i] != ingredientsAdded[i]){
+						pizzaGood = false;
+						break;
+					}
+				}
+
+				if(pizzaGood){
+					goodPizzas++;
+				}
+
+				for(int i = 0; i < ingredientsToAdd.Length; i++){
+					ingredientsToAdd[i] = false;
+					ingredientsAdded[i] = false;
+				}
 			}
 
 			/*// Scale hand on each beat
