@@ -8,49 +8,29 @@ public enum TicketType{
 }
 
 public class Ticket : MonoBehaviour {
-	public string type = "Cheese";  // If no type is specified, default to cheese
-	private TicketType ticketObj;
+	//public string type = "Cheese";  // If no type is specified, default to cheese
+	// Sprite for Cheese, Sausage, and Veggie tickets
+	public Sprite cheeseTicket;
+	public Sprite sausageTicket;
+	public Sprite veggieTicket;
 
-	// Use this for initialization
-	void Start () {
-		/*switch (type) {
-			case "Cheese":
-				ticketObj = TicketType.CHEESE;
-				//SetSprite("ticket_cheese");
-				break;
-			case "Sausage":
-				ticketObj = TicketType.SAUSAGE;
-				//SetSprite("ticket_sausage");
-				break;
-			case "Veggie":
-				ticketObj = TicketType.VEGGIE;
-				//SetSprite("ticket_veggie");
-				break;
-		}*/
-	
-	}
+	public TicketType ticketObj;
 
-	/*void SetSprite(string spriteName){
-		Sprite changeTemp = GameObject.Find (spriteName).GetComponent<SpriteRenderer> ().sprite;
-
-		gameObject.GetComponent<SpriteRenderer> ().sprite = changeTemp;
-	}*/
-	
 	public TicketType GetTicketType(){ 
-		switch (type) {
+		switch (ticketObj) {
 		// Default case will fall through to cheese
 		default:
-		case "Cheese":
+		case TicketType.CHEESE:
 			ticketObj = TicketType.CHEESE;
-			//SetSprite("ticket_cheese");
+			gameObject.GetComponent<SpriteRenderer> ().sprite = cheeseTicket;
 			break;
-		case "Sausage":
+		case TicketType.SAUSAGE:
 			ticketObj = TicketType.SAUSAGE;
-			//SetSprite("ticket_sausage");
+			gameObject.GetComponent<SpriteRenderer> ().sprite = sausageTicket;
 			break;
-		case "Veggie":
+		case TicketType.VEGGIE:
 			ticketObj = TicketType.VEGGIE;
-			//SetSprite("ticket_veggie");
+			gameObject.GetComponent<SpriteRenderer> ().sprite = veggieTicket;
 			break;
 		}
 
