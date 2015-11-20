@@ -163,7 +163,7 @@ public class FlyingHand : RhythmObject {
 				GameObject.Find("veggie_layer").GetComponent<SpriteRenderer>().enabled = false;
 				GameObject.Find("sausage_layer").GetComponent<SpriteRenderer>().enabled = false;
 				GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
-				GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
+				//GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
 
 				// Check if pizza was made correctly, then reset ingredient arrays
 				bool pizzaGood = true;
@@ -176,6 +176,7 @@ public class FlyingHand : RhythmObject {
 
 				if(pizzaGood){
 					goodPizzas++;
+					Debug.Log (goodPizzas);
 				}
 
 				for(int i = 0; i < ingredientsToAdd.Length; i++){
