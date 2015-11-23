@@ -20,11 +20,23 @@ public class Ticket : MonoBehaviour {
 		setType(type);
 	}
 
-	void changeType(string newType = default(string)){
+	void changeType(string newType = default(string), int random = default(int)){
 		if(newType != null){
 			// Changing type
 			setType(newType);
-		} else{
+		} else if( random != 0){
+			switch(random){
+			case 1:
+				setType("Cheese");
+				break;
+			case 2:
+				setType("Sausage");
+				break;
+			case 3:
+				setType("Veggie");
+				break;
+			}
+		}else{
 			Debug.Log("no type passed into changeType");
 		}
 	}
