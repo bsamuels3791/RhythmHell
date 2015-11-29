@@ -165,6 +165,12 @@ public class FlyingHand : RhythmObject {
 				GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
 				//GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
 
+                // Set next pizza ticket
+
+                // First argument of changeType needs to be null to get ticket
+                // to change based on integer argument
+                ticket.changeType(null, (beatMachine.GetMeasure() % 3) + 1);
+
 				// Check if pizza was made correctly, then reset ingredient arrays
 				bool pizzaGood = true;
 				for (int i = 0; i < ingredientsToAdd.Length; i++){

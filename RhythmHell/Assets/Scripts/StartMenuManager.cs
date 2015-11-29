@@ -8,6 +8,7 @@ public class StartMenuManager : MonoBehaviour {
     public Button helpButton;
     public Button backButton;
     public Text helpText;
+    public SpriteRenderer title;
 
 	// Use this for initialization
 	void Start () {
@@ -35,9 +36,10 @@ public class StartMenuManager : MonoBehaviour {
     ***/
     public void ShowHelp()
     {
-        // Hide start and help buttons
+        // Hide start and help buttons, and game title
         startButton.gameObject.SetActive(false);
         helpButton.gameObject.SetActive(false);
+        title.gameObject.SetActive(false);
         // Show help text and back button
         helpText.gameObject.SetActive(true);
         backButton.gameObject.SetActive(true);
@@ -50,9 +52,10 @@ public class StartMenuManager : MonoBehaviour {
     ***/
     public void HideHelp()
     {
-        // Show start and help buttons
+        // Show start and help buttons, and game title
         startButton.gameObject.SetActive(true);
         helpButton.gameObject.SetActive(true);
+        title.gameObject.SetActive(true);
         // Hide help text and back button
         helpText.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);

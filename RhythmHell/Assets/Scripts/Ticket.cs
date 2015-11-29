@@ -20,11 +20,13 @@ public class Ticket : MonoBehaviour {
 		setType(type);
 	}
 
-	void changeType(string newType = default(string), int random = default(int)){
+	public void changeType(string newType = default(string), int random = default(int)){
 		if(newType != null){
 			// Changing type
 			setType(newType);
-		} else if( random != 0){
+        }
+        else if (random != 0)
+        {
 			switch(random){
 			case 1:
 				setType("Cheese");
