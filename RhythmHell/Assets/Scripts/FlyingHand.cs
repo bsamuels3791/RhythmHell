@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class FlyingHand : RhythmObject {
 
@@ -9,16 +10,23 @@ public class FlyingHand : RhythmObject {
 
 	public float globalOffset = 0;
 	public float speed = 0;
+	/*public int score = 0;
 	public int perfectCount = 0;
 	public int okCount = 0;
 	public int booCount = 0;
-	public int goodPizzas = 0;
+	public int goodPizzas = 0;*/
 	public Ingredient veggie;
 	public Ingredient sausage;
 	public Ingredient cheese;
 	public Ingredient sauce;
 	public Ticket ticket;
+	public Text scoreText;
 
+	private int score = 0;
+	private int perfectCountCurrent = 0;
+	private int okCountCurrent = 0;
+	private int booCountCurrent = 0;
+	private int goodPizzas;
 
 	private int previousBeat;
 	private float previousHalfBeat;
@@ -111,7 +119,8 @@ public class FlyingHand : RhythmObject {
 
 			if (keyHitBeat < PERFECT_OFFSET || keyHitBeat > 1 - PERFECT_OFFSET)
 			{
-				perfectCount = perfectCount + 1;
+				//perfectCount = perfectCount + 1;
+				perfectCountCurrent++;
 				Debug.Log("Perfect");
 
 			//	GameObject.Find("Rating").GetComponent<Text>().text = "PERFECT!";
@@ -119,14 +128,16 @@ public class FlyingHand : RhythmObject {
 			}
 			else if (keyHitBeat < OK_OFFSET || keyHitBeat > 1 - OK_OFFSET)
 			{
-				okCount = okCount + 1;
+				//okCount = okCount + 1;
+				okCountCurrent++;
 				Debug.Log("OK");
 			//	GameObject.Find("Rating").GetComponent<Text>().text = "OK";
 			//	GameObject.Find("OkCount").GetComponent<Text>().text = "Ok's: " + okCount.ToString();
 			}
 			else
 			{
-				booCount = booCount + 1;
+				//booCount = booCount + 1;
+				booCountCurrent++;
 				Debug.Log ("Boo");
 			//	GameObject.Find("Rating").GetComponent<Text>().text = "Boo!";
 			}			
@@ -182,13 +193,23 @@ public class FlyingHand : RhythmObject {
 
 				if(pizzaGood){
 					goodPizzas++;
-					Debug.Log (goodPizzas);
+					// Add to score based on how well the player did this pizza
+					score++; // +1 for getting pizza right
+					score += 2*perfectCountCurrent; // +2 for each Perfect ingredient
+					score += okCountCurrent; // +1 for each OK ingredient
+					// +0 for each Boo ingredient
+					//Debug.Log (goodPizzas);
 				}
 
 				for(int i = 0; i < ingredientsToAdd.Length; i++){
 					ingredientsToAdd[i] = false;
 					ingredientsAdded[i] = false;
 				}
+
+				scoreText.text = "Score:  " + score.ToString();
+				perfectCountCurrent = 0;
+				okCountCurrent = 0;
+				booCountCurrent = 0;
 			}
 
 			/*// Scale hand on each beat
