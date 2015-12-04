@@ -21,6 +21,7 @@ public class FlyingHand : RhythmObject {
 	public Ingredient sauce;
 	public Ticket ticket;
 	public Text scoreText;
+    public Text readyText;
 
 	private int score = 0;
 	private int perfectCountCurrent = 0;
@@ -32,6 +33,7 @@ public class FlyingHand : RhythmObject {
 	private float previousHalfBeat;
 	private TicketType ticketType;
 
+    private bool enableInput;
 	private bool[] ingredientsToAdd;
 	private bool[] ingredientsAdded;
 
@@ -44,6 +46,7 @@ public class FlyingHand : RhythmObject {
 		previousHalfBeat = (int)beatMachine.GetBeatPosition() - 1;
 		speed = beatMachine.bpm / 60.0f; // speed = beats per second
 
+        enableInput = false;
 		ingredientsToAdd = new bool[3];
 		ingredientsAdded = new bool[3];
 
@@ -89,7 +92,7 @@ public class FlyingHand : RhythmObject {
 		}
 
 		//Checks the input
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) && enableInput)
 		{
 			// Add the ingredient
 			switch(currentBeat){
@@ -163,74 +166,96 @@ public class FlyingHand : RhythmObject {
 	void OnBeat(int measure, int beat)
 	{
 		// Check if a new beat has started
-		if ((int)beat != previousBeat)
-		{
-			// Hand will reset to SAUCE position every 4 measures
-			//gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2*measure % 8), 0.0f);
-			// Reset every 4 beats
-			gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2*beat), 0.0f);
-			// Clear pizza on reset
-			if(beat == 0) {
-				GameObject.Find("veggie_layer").GetComponent<SpriteRenderer>().enabled = false;
-				GameObject.Find("sausage_layer").GetComponent<SpriteRenderer>().enabled = false;
-				GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
-				//GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
+        if ((int)beat != previousBeat)
+        {
+            // Hand will reset to SAUCE position every 4 measures
+            //gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2*measure % 8), 0.0f);
+            // Reset every 4 beats
+            gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2 * beat), 0.0f);
 
-                // Set next pizza ticket
+            // Update ready text for first and second measures
+            if (measure == 0) { /*Don't need to actually update anything on first measure, just need to not go into else statement*/ }
+            else if (measure == 1)
+            {
+                readyText.text = (4 - beat) + "!";
+            }
+            // On third measure and onward, have normal gameplay
+            else
+            {
+                // If ready text is still active, de-activate it
+                if (readyText.IsActive()) { 
+                    readyText.gameObject.SetActive(false);
+                    enableInput = true;
+                }
 
-                // First argument of changeType needs to be null to get ticket
-                // to change based on integer argument
-                ticket.changeType(null, (beatMachine.GetMeasure() % 3) + 1);
+                // Clear pizza on reset
+                if (beat == 0)
+                {
+                    GameObject.Find("veggie_layer").GetComponent<SpriteRenderer>().enabled = false;
+                    GameObject.Find("sausage_layer").GetComponent<SpriteRenderer>().enabled = false;
+                    GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
+                    //GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
 
-				// Check if pizza was made correctly, then reset ingredient arrays
-				bool pizzaGood = true;
-				for (int i = 0; i < ingredientsToAdd.Length; i++){
-					if(ingredientsToAdd[i] != ingredientsAdded[i]){
-						pizzaGood = false;
-						break;
-					}
-				}
+                    // Set next pizza ticket
 
-				if(pizzaGood){
-					goodPizzas++;
-					// Add to score based on how well the player did this pizza
-					score++; // +1 for getting pizza right
-					score += 2*perfectCountCurrent; // +2 for each Perfect ingredient
-					score += okCountCurrent; // +1 for each OK ingredient
-					// +0 for each Boo ingredient
-					//Debug.Log (goodPizzas);
-				}
+                    // First argument of changeType needs to be null to get ticket
+                    // to change based on integer argument
+                    ticket.changeType(null, (beatMachine.GetMeasure() % 3) + 1);
 
-				for(int i = 0; i < ingredientsToAdd.Length; i++){
-					ingredientsToAdd[i] = false;
-					ingredientsAdded[i] = false;
-				}
+                    // Check if pizza was made correctly, then reset ingredient arrays
+                    bool pizzaGood = true;
+                    for (int i = 0; i < ingredientsToAdd.Length; i++)
+                    {
+                        if (ingredientsToAdd[i] != ingredientsAdded[i])
+                        {
+                            pizzaGood = false;
+                            break;
+                        }
+                    }
 
-				scoreText.text = "Score:  " + score.ToString();
-				perfectCountCurrent = 0;
-				okCountCurrent = 0;
-				booCountCurrent = 0;
-			}
+                    if (pizzaGood)
+                    {
+                        goodPizzas++;
+                        // Add to score based on how well the player did this pizza
+                        score++; // +1 for getting pizza right
+                        score += 2 * perfectCountCurrent; // +2 for each Perfect ingredient
+                        score += okCountCurrent; // +1 for each OK ingredient
+                        // +0 for each Boo ingredient
+                        //Debug.Log (goodPizzas);
+                    }
 
-			/*// Scale hand on each beat
-			float scalePct = 175.0f - (25*(beat % 4));
-			scalePct /= 100.0f;
+                    for (int i = 0; i < ingredientsToAdd.Length; i++)
+                    {
+                        ingredientsToAdd[i] = false;
+                        ingredientsAdded[i] = false;
+                    }
 
-			gameObject.transform.localScale = new Vector3 (scalePct, scalePct);*/
+                    scoreText.text = "Score:  " + score.ToString();
+                    perfectCountCurrent = 0;
+                    okCountCurrent = 0;
+                    booCountCurrent = 0;
+                }
 
-			/*if(beat == 0){
-				gameObject.transform.localScale = new Vector3(1.75f, 1.75f);
-			}
-			else if(beat == 1){
-				gameObject.transform.localScale = new Vector3(1.5f, 1.5f);
-			}
-			else if(beat == 2){
-				gameObject.transform.localScale = new Vector3(1.25f, 1.25f);
-			}
-			else{
-				gameObject.transform.localScale = new Vector3(1.0f, 1.0f);
-			}*/
-		}
+                /*// Scale hand on each beat
+                float scalePct = 175.0f - (25*(beat % 4));
+                scalePct /= 100.0f;
+
+                gameObject.transform.localScale = new Vector3 (scalePct, scalePct);*/
+
+                /*if(beat == 0){
+                    gameObject.transform.localScale = new Vector3(1.75f, 1.75f);
+                }
+                else if(beat == 1){
+                    gameObject.transform.localScale = new Vector3(1.5f, 1.5f);
+                }
+                else if(beat == 2){
+                    gameObject.transform.localScale = new Vector3(1.25f, 1.25f);
+                }
+                else{
+                    gameObject.transform.localScale = new Vector3(1.0f, 1.0f);
+                }*/
+            }
+        }
 	}
 
 	void OnHalfBeat(int measure, float beatAbs, int beatInt){
