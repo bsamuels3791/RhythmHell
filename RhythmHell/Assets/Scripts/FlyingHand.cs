@@ -234,7 +234,7 @@ public class FlyingHand : RhythmObject {
 	}
 
 	void OnHalfBeat(int measure, float beatAbs, int beatInt){
-		if (beatAbs - beatInt < 0.5f) {
+		if (beatAbs - beatInt >= 0.5f) {
 			gameObject.transform.localScale = new Vector3(1.5f, 1.5f);
 			//gameObject.transform.Translate(0.0f, -0.5f, 0.0f);
 			gameObject.transform.position = new Vector3(-10.0f, gameObject.transform.position.y, gameObject.transform.position.z);
