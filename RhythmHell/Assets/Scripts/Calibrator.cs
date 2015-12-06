@@ -11,9 +11,15 @@ public class Calibrator : RhythmObject
 
     private RhythmAnalyzer analyzer;
     private bool calibrating;
+    private bool showThrowing;
 
     private GameObject hideButtonSprite;
     private Text noticeText;
+
+    /* --Red button was originally around x=4.2, green around x=5.1, no peeking image at x=0-- */
+    public Sprite idleA, idleB, throwing;
+    private int previousBeat;
+    private GameObject chefSprite;
 
     // Use this for initialization
     void Start()
@@ -23,6 +29,12 @@ public class Calibrator : RhythmObject
 
         hideButtonSprite = GameObject.Find("HideButtons");
         noticeText = GameObject.Find("Notice").GetComponent<Text>();
+
+        chefSprite = GameObject.Find("Chef");
+        // Start the previous beat 1 before the starting beat of the beat machine
+        // so that the Rhythm Object will immediately update because it thinks the
+        // beat machine is changing from the previous beat to the current beat
+        previousBeat = (int)beatMachine.GetBeatPosition() - 1;
     }
 
     // Update is called once per frame
@@ -45,6 +57,9 @@ public class Calibrator : RhythmObject
                 {
                     float sample = beatMachine.GetBeatPosition();
                     analyzer.AddSample(sample);
+
+                    // Show thowing sprite when player hits space
+                    showThrowing = true;
                 }
 
                /* GameObject.Find("Notice").GetComponent<Text>().text =
@@ -70,6 +85,15 @@ public class Calibrator : RhythmObject
 
                 GlobalRhythmControl.globalOffset = offset * 1000;
             }
+
+            // Check if OnBeat should be called
+            int currentBeat = (int)beatMachine.GetBeatPosition();
+
+            if (previousBeat != currentBeat)
+            {
+                OnBeat(beatMachine.GetMeasure(), currentBeat);
+                previousBeat = currentBeat;
+            }
         }
         else
         {
@@ -91,4 +115,25 @@ public class Calibrator : RhythmObject
             }
         }
     }
+
+    /**
+     * Called when the beat is hit
+     */
+    void OnBeat(int measure, int beat)
+    {
+        if (showThrowing)
+        {
+            chefSprite.GetComponent<SpriteRenderer>().sprite = throwing;
+            showThrowing = false;
+        }
+        else if (chefSprite.GetComponent<SpriteRenderer>().sprite == idleA)
+        {
+            chefSprite.GetComponent<SpriteRenderer>().sprite = idleB;
+        }
+        else
+        {
+            chefSprite.GetComponent<SpriteRenderer>().sprite = idleA;
+        }
+    }
+
 }
