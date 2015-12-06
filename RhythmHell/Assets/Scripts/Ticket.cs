@@ -13,7 +13,9 @@ public class Ticket : MonoBehaviour {
 	public Sprite sausageTicket;
 	public Sprite veggieTicket;
 	public string type = "Cheese";  // If no type is specified, default to cheese
+
 	private TicketType ticketObj;
+	private int CompletedTickets;
 
 	// Use this for initialization
 	void Start () {
@@ -60,7 +62,15 @@ public class Ticket : MonoBehaviour {
 			gameObject.GetComponent<SpriteRenderer> ().sprite = veggieTicket;
 			//SetSprite("ticket_veggie");
 			break;
-		}	
+		}
+		/*
+		GlobalRhythmControl.finishedPizza ++;
+		should move this if statement and maybe increment to the flying hand class... not sure
+		if(GlobalRhythmControl.finishedPizza == 20){
+			GlobalRhythmControl.score = 
+			Application.loadLevel
+		}
+		*/
 	}
 
 	public TicketType GetTicketType(){ 

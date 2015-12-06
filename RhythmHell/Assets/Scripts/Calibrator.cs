@@ -61,11 +61,7 @@ public class Calibrator : RhythmObject
                     // Show thowing sprite when player hits space
                     showThrowing = true;
                 }
-
-               /* GameObject.Find("Notice").GetComponent<Text>().text =
-                    "Samples collected:\n" +
-                    samples.Count + " / " + MAX_SAMPLES;*/
-                noticeText.text =
+           			noticeText.text =
                     "Samples collected:\n" +
                     samples.Count + " / " + MAX_SAMPLES;
             }
@@ -75,8 +71,6 @@ public class Calibrator : RhythmObject
             {
                 float offset = analyzer.GetAverageOffset();
 
-                /*GameObject.Find("Notice").GetComponent<Text>().text =
-                    "Global Offset:\n" + offset;*/
                 noticeText.text =
                     "Global Offset: \n" + offset;
 
@@ -97,8 +91,6 @@ public class Calibrator : RhythmObject
         }
         else
         {
-            /*GameObject.Find("Notice").GetComponent<Text>().text =
-                "Press Space to move to the game!\n\n Or, press 'R' to re-do the calibration";*/
             noticeText.text =
                 "Press Space to move to the game!\n\n Or, press 'R' to re-do the calibration";
 

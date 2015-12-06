@@ -5,6 +5,8 @@ public class GlobalRhythmControl : MonoBehaviour
 {
     public static GlobalRhythmControl Instance;
     public static float globalOffset = 0;
+	public static int finishedPizza = 0;
+	public static int score =0;
 
     void Awake()
     {
