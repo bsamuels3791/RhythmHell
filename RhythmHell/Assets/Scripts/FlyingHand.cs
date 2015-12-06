@@ -32,6 +32,9 @@ public class FlyingHand : RhythmObject {
 	private int previousBeat;
 	private float previousHalfBeat;
 	private TicketType ticketType;
+    private ParticleSystem cheeseParticle;
+    private ParticleSystem sausageParticle;
+    private ParticleSystem veggieParticle;
 
     private bool enableInput;
 	private bool[] ingredientsToAdd;
@@ -45,6 +48,10 @@ public class FlyingHand : RhythmObject {
 		previousBeat = (int)beatMachine.GetBeatPosition() - 1;
 		previousHalfBeat = (int)beatMachine.GetBeatPosition() - 1;
 		speed = beatMachine.bpm / 60.0f; // speed = beats per second
+
+        cheeseParticle = cheese.GetComponentInChildren<ParticleSystem>();
+        sausageParticle = sausage.GetComponentInChildren<ParticleSystem>();
+        veggieParticle = veggie.GetComponentInChildren<ParticleSystem>();
 
         enableInput = false;
 		ingredientsToAdd = new bool[3];
@@ -124,6 +131,21 @@ public class FlyingHand : RhythmObject {
 			{
 				//perfectCount = perfectCount + 1;
 				perfectCountCurrent++;
+
+                // Ingredient Particles should only go on perfect hit
+                switch (currentBeat)
+                {
+                    case 1:
+                        cheeseParticle.Play();
+                        break;
+                    case 2:
+                        sausageParticle.Play();
+                        break;
+                    case 3:
+                        veggieParticle.Play();
+                        break;
+                }
+
 				Debug.Log("Perfect");
 
 			//	GameObject.Find("Rating").GetComponent<Text>().text = "PERFECT!";
