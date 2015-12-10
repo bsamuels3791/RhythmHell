@@ -64,9 +64,7 @@ public class FlyingHand : RhythmObject {
 
 	// Update is called once per frame
 	void Update () {
-
-		// This code seems to get the hand sliding at the proper pace
-		/*
+		/* This code seems to get the hand sliding at the proper pace
 		if(gameObject.transform.position.y > 3.0f){
 			gameObject.transform.position = new Vector3(-8,-4.0f,0);
 		}
@@ -216,8 +214,7 @@ public class FlyingHand : RhythmObject {
                     GameObject.Find("veggie_layer").GetComponent<SpriteRenderer>().enabled = false;
                     GameObject.Find("sausage_layer").GetComponent<SpriteRenderer>().enabled = false;
                     GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
-                    //GameObject.Find("sauce_layer").GetComponent<SpriteRenderer>().enabled = false;
-
+                    
                     // Set next pizza ticket
 
                     // First argument of changeType needs to be null to get ticket
@@ -252,6 +249,10 @@ public class FlyingHand : RhythmObject {
                         ingredientsAdded[i] = false;
                     }
 
+					// Save counts before reset
+					GlobalRhythmControl.perfectCount += perfectCountCurrent; 
+					GlobalRhythmControl.okayCount += okCountCurrent;  
+					// Reset on the measure
                     scoreText.text = "Score:  " + score.ToString();
                     perfectCountCurrent = 0;
                     okCountCurrent = 0;
