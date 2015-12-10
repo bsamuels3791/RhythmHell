@@ -22,26 +22,26 @@ public class Ticket : MonoBehaviour {
 		setType(type);
 	}
 
-	public void changeType(string newType = default(string), int random = default(int)){
+	public void changeType(string newType = null, int random = 10){
 		if(newType != null){
 			// Changing type
 			setType(newType);
         }
-        else if (random != 0)
+        else if (random != 10)
         {
 			switch(random){
-			case 1:
+			case 0:
 				setType("Cheese");
 				break;
-			case 2:
+			case 1:
 				setType("Sausage");
 				break;
-			case 3:
+			case 2:
 				setType("Veggie");
 				break;
 			}
 		}else{
-			Debug.Log("no type passed into changeType");
+			Debug.Log("no data passed into changeType");
 		}
 	}
 
@@ -63,14 +63,6 @@ public class Ticket : MonoBehaviour {
 			//SetSprite("ticket_veggie");
 			break;
 		}
-		/*
-		GlobalRhythmControl.finishedPizza ++;
-		should move this if statement and maybe increment to the flying hand class... not sure
-		if(GlobalRhythmControl.finishedPizza == 20){
-			GlobalRhythmControl.score = 
-			Application.loadLevel
-		}
-		*/
 	}
 
 	public TicketType GetTicketType(){ 

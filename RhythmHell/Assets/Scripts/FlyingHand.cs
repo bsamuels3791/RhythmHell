@@ -56,10 +56,6 @@ public class FlyingHand : RhythmObject {
         enableInput = false;
 		ingredientsToAdd = new bool[3];
 		ingredientsAdded = new bool[3];
-
-		/*
-		globalOffset = GameObject.Find("//Something//").GetComponent<Script>().offset;
-		*/
 	 }
 
 	// Update is called once per frame
@@ -75,24 +71,29 @@ public class FlyingHand : RhythmObject {
 
 		// Only get the ticket on the first beat
 		if (currentBeat == 0) {
-			ticketType = ticket.GetTicketType();
+			if(beatMachine.GetMeasure() == 30){
+				Application.LoadLevel(3);
+			}
+			else{
+				ticketType = ticket.GetTicketType();
 
-			switch(ticketType){
-				case TicketType.CHEESE:
-					ingredientsToAdd[0] = true;
-					ingredientsToAdd[1] = false;
-					ingredientsToAdd[2] = false;
-					break;
-				case TicketType.SAUSAGE:
-					ingredientsToAdd[0] = true;
-					ingredientsToAdd[1] = true;
-					ingredientsToAdd[2] = false;
-					break;
-				case TicketType.VEGGIE:
-					ingredientsToAdd[0] = true;
-					ingredientsToAdd[1] = false;
-					ingredientsToAdd[2] = true;
-					break;
+				switch(ticketType){
+					case TicketType.CHEESE:
+						ingredientsToAdd[0] = true;
+						ingredientsToAdd[1] = false;
+						ingredientsToAdd[2] = false;
+						break;
+					case TicketType.SAUSAGE:
+						ingredientsToAdd[0] = true;
+						ingredientsToAdd[1] = true;
+						ingredientsToAdd[2] = false;
+						break;
+					case TicketType.VEGGIE:
+						ingredientsToAdd[0] = true;
+						ingredientsToAdd[1] = false;
+						ingredientsToAdd[2] = true;
+						break;
+				}
 			}
 		}
 
@@ -145,26 +146,17 @@ public class FlyingHand : RhythmObject {
                 }
 
 				Debug.Log("Perfect");
-
-			//	GameObject.Find("Rating").GetComponent<Text>().text = "PERFECT!";
-			//	GameObject.Find("PerfectCount").GetComponent<Text>().text = "Perfects: " + perfectCount.ToString();
 			}
 			else if (keyHitBeat < OK_OFFSET || keyHitBeat > 1 - OK_OFFSET)
 			{
-				//okCount = okCount + 1;
 				okCountCurrent++;
 				Debug.Log("OK");
-			//	GameObject.Find("Rating").GetComponent<Text>().text = "OK";
-			//	GameObject.Find("OkCount").GetComponent<Text>().text = "Ok's: " + okCount.ToString();
 			}
 			else
 			{
-				//booCount = booCount + 1;
 				booCountCurrent++;
 				Debug.Log ("Boo");
-			//	GameObject.Find("Rating").GetComponent<Text>().text = "Boo!";
-			}			
-			//Debug.Log(keyHitBeat);
+			}
 		}
 
 		//float floatBeat = beatMachine.GetBeatPosition();
@@ -214,13 +206,6 @@ public class FlyingHand : RhythmObject {
                     GameObject.Find("veggie_layer").GetComponent<SpriteRenderer>().enabled = false;
                     GameObject.Find("sausage_layer").GetComponent<SpriteRenderer>().enabled = false;
                     GameObject.Find("cheese_layer").GetComponent<SpriteRenderer>().enabled = false;
-                    
-                    // Set next pizza ticket
-
-                    // First argument of changeType needs to be null to get ticket
-                    // to change based on integer argument
-                    ticket.changeType(null, (beatMachine.GetMeasure() % 3) + 1);
-
                     // Check if pizza was made correctly, then reset ingredient arrays
                     bool pizzaGood = true;
                     for (int i = 0; i < ingredientsToAdd.Length; i++)
@@ -257,26 +242,12 @@ public class FlyingHand : RhythmObject {
                     perfectCountCurrent = 0;
                     okCountCurrent = 0;
                     booCountCurrent = 0;
+					// Set next pizza ticket
+					
+					// First argument of changeType needs to be null to get ticket
+					// to change based on integer argument
+					ticket.changeType(null, (beatMachine.GetMeasure() % 3) );
                 }
-
-                /*// Scale hand on each beat
-                float scalePct = 175.0f - (25*(beat % 4));
-                scalePct /= 100.0f;
-
-                gameObject.transform.localScale = new Vector3 (scalePct, scalePct);*/
-
-                /*if(beat == 0){
-                    gameObject.transform.localScale = new Vector3(1.75f, 1.75f);
-                }
-                else if(beat == 1){
-                    gameObject.transform.localScale = new Vector3(1.5f, 1.5f);
-                }
-                else if(beat == 2){
-                    gameObject.transform.localScale = new Vector3(1.25f, 1.25f);
-                }
-                else{
-                    gameObject.transform.localScale = new Vector3(1.0f, 1.0f);
-                }*/
             }
         }
 	}
