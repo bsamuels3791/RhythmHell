@@ -30,7 +30,7 @@ public class Calibrator : RhythmObject
         hideButtonSprite = GameObject.Find("HideButtons");
         noticeText = GameObject.Find("Notice").GetComponent<Text>();
 
-        chefSprite = GameObject.Find("Chef");
+        chefSprite = GameObject.Find("PizzaMan!");
         // Start the previous beat 1 before the starting beat of the beat machine
         // so that the Rhythm Object will immediately update because it thinks the
         // beat machine is changing from the previous beat to the current beat
@@ -60,7 +60,9 @@ public class Calibrator : RhythmObject
 
                     // Show thowing sprite when player hits space
                     showThrowing = true;
+					ThrowFood();
                 }
+					
            			noticeText.text =
                     "Samples collected:\n" +
                     samples.Count + " / " + MAX_SAMPLES;
@@ -108,24 +110,24 @@ public class Calibrator : RhythmObject
         }
     }
 
+	void ThrowFood(){
+			chefSprite.GetComponent<SpriteRenderer>().sprite = throwing;
+			showThrowing = false;
+	}
+
     /**
      * Called when the beat is hit
      */
     void OnBeat(int measure, int beat)
     {
-        if (showThrowing)
-        {
-            chefSprite.GetComponent<SpriteRenderer>().sprite = throwing;
-            showThrowing = false;
-        }
-        else if (chefSprite.GetComponent<SpriteRenderer>().sprite == idleA)
-        {
-            chefSprite.GetComponent<SpriteRenderer>().sprite = idleB;
-        }
-        else
-        {
-            chefSprite.GetComponent<SpriteRenderer>().sprite = idleA;
-        }
+		if (chefSprite.GetComponent<SpriteRenderer>().sprite == idleA)
+		{
+			chefSprite.GetComponent<SpriteRenderer>().sprite = idleB;
+		}
+		else
+		{
+			chefSprite.GetComponent<SpriteRenderer>().sprite = idleA;
+		}   
     }
 
 }
