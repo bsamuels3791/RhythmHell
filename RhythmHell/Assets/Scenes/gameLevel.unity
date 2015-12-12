@@ -65,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -84,9 +85,6 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!127 &5
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!1 &20909012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,7 +1232,7 @@ MonoBehaviour:
   m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AllowActivationOnStandalone: 0
+  m_ForceModuleActive: 0
 --- !u!114 &77057616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,7 +1250,7 @@ MonoBehaviour:
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: .5
-  m_AllowActivationOnMobileDevice: 0
+  m_ForceModuleActive: 0
 --- !u!114 &77057617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1588,6 +1586,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -1657,7 +1656,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 235135257
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: a3a9d3ffba63bdd43b3ddab378b8b74c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 87bedb6f79037c44a8b421f5495762b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &603468183
 GameObject:
@@ -1711,7 +1710,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 235135257
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: f0019d676dc3c8b4e86db8ad633ea5be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0bd13a8a30ea8e749ae1ca02891de76d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &748017528
 GameObject:
@@ -1754,7 +1753,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 28040a54a8cc96f4e9df1c1a7e741ae8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a705427c5a0c0b14eb78d16d65d4bf65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &748017530
 Transform:
@@ -1828,7 +1827,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 235135257
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 304a0235f7522b747b370c3fdf392371, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bcfc77ad91aa4048a0458683e741e68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &805006085
 Transform:
@@ -1872,6 +1871,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .20588237, g: .0938581452, b: .0938581452, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 500b026942796594ea68c4b537722e94, type: 3}
     m_FontSize: 24
@@ -1962,7 +1967,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd419c06e80f9c6408c548783d7403d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 73b09870146321844a5bf5a845e19f3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1149080387
 MonoBehaviour:
@@ -2017,7 +2022,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b739fd77170de8d418805fbd733e7fbc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f99166fee5b6fbc49b31d239a9d46781, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1197512099
 Transform:
@@ -2174,7 +2179,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c33bfdcca034e0e49bf07103212a7998, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0547e57b4de551d4ab8684fc4d4eddba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1462756763
 MonoBehaviour:
@@ -2254,9 +2259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97b201635c2601245b36fa832585a470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cheeseTicket: {fileID: 21300000, guid: 070d82c334241004eaa358bc9f5efd73, type: 3}
-  sausageTicket: {fileID: 21300000, guid: 10718120ab6d4f048b6f4ab9559427b5, type: 3}
-  veggieTicket: {fileID: 21300000, guid: 5b640b13e39237549b314f5f868b209d, type: 3}
+  cheeseTicket: {fileID: 21300000, guid: 414742c063ac04e46978eb9af40dc040, type: 3}
+  sausageTicket: {fileID: 21300000, guid: 6509e96e00b9f4e41ba7a8d3c76914ed, type: 3}
+  veggieTicket: {fileID: 21300000, guid: 9dd07ead1c6289a468f254fc7d847510, type: 3}
   type: Cheese
 --- !u!1 &1618374053
 GameObject:
@@ -2310,7 +2315,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 235135257
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6eb839528a7c6134796a5b37eb3eb648, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bfd48395056b07c4bacb2a787f7465cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1626594652
 GameObject:
@@ -3460,6 +3465,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .257352948, g: .251676053, b: .251676053, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 500b026942796594ea68c4b537722e94, type: 3}
     m_FontSize: 48
@@ -4668,7 +4679,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e3a27b68fc8275547acaea6b0981d507, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50eee371c90540044b6b308bf6313d4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1965238986
 MonoBehaviour:
@@ -4734,5 +4745,5 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 235135257
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 439603dc06667944fa42c2366a34fa1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2b310daa1b4cf340a30980ee55cd6b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
