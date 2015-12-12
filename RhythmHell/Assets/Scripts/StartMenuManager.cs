@@ -7,6 +7,7 @@ public class StartMenuManager : MonoBehaviour {
     public Button startButton;
     public Button helpButton;
     public Button backButton;
+    public GameObject teamInfo;
     public Text helpText;
     public SpriteRenderer title;
 
@@ -40,6 +41,7 @@ public class StartMenuManager : MonoBehaviour {
         startButton.gameObject.SetActive(false);
         helpButton.gameObject.SetActive(false);
         title.gameObject.SetActive(false);
+        teamInfo.SetActive(false);
         // Show help text and back button
         helpText.gameObject.SetActive(true);
         backButton.gameObject.SetActive(true);
@@ -56,6 +58,7 @@ public class StartMenuManager : MonoBehaviour {
         startButton.gameObject.SetActive(true);
         helpButton.gameObject.SetActive(true);
         title.gameObject.SetActive(true);
+        teamInfo.SetActive(true);
         // Hide help text and back button
         helpText.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
