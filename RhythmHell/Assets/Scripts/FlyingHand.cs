@@ -13,8 +13,7 @@ public class FlyingHand : RhythmObject {
 	/*public int score = 0;
 	public int perfectCount = 0;
 	public int okCount = 0;
-	public int booCount = 0;
-	public int goodPizzas = 0;*/
+	public int booCount = 0;*/
 	public Ingredient veggie;
 	public Ingredient sausage;
 	public Ingredient cheese;
@@ -27,7 +26,6 @@ public class FlyingHand : RhythmObject {
 	private int perfectCountCurrent = 0;
 	private int okCountCurrent = 0;
 	private int booCountCurrent = 0;
-	private int goodPizzas;
 
 	private int previousBeat;
 	private float previousHalfBeat;
@@ -219,13 +217,12 @@ public class FlyingHand : RhythmObject {
 
                     if (pizzaGood)
                     {
-                        goodPizzas++;
+						GlobalRhythmControl.finishedPizza++;
                         // Add to score based on how well the player did this pizza
                         score++; // +1 for getting pizza right
                         score += 2 * perfectCountCurrent; // +2 for each Perfect ingredient
                         score += okCountCurrent; // +1 for each OK ingredient
                         // +0 for each Boo ingredient
-                        //Debug.Log (goodPizzas);
                     }
 
                     for (int i = 0; i < ingredientsToAdd.Length; i++)
@@ -243,7 +240,6 @@ public class FlyingHand : RhythmObject {
                     okCountCurrent = 0;
                     booCountCurrent = 0;
 					// Set next pizza ticket
-					
 					// First argument of changeType needs to be null to get ticket
 					// to change based on integer argument
 					ticket.changeType(null, (beatMachine.GetMeasure() % 3) );

@@ -11,8 +11,6 @@ public class Calibrator : RhythmObject
 
     private RhythmAnalyzer analyzer;
     private bool calibrating;
-    private bool showThrowing;
-
     private GameObject hideButtonSprite;
     private Text noticeText;
 
@@ -59,7 +57,6 @@ public class Calibrator : RhythmObject
                     analyzer.AddSample(sample);
 
                     // Show thowing sprite when player hits space
-                    showThrowing = true;
 					ThrowFood();
                 }
 					
@@ -112,7 +109,6 @@ public class Calibrator : RhythmObject
 
 	void ThrowFood(){
 			chefSprite.GetComponent<SpriteRenderer>().sprite = throwing;
-			showThrowing = false;
 	}
 
     /**
