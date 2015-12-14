@@ -6,6 +6,7 @@ public class Ingredient : MonoBehaviour {
 	public string type;
 	private string layer;
 	private GameObject appliedLayer;
+    private Vector3 startingPos;
 
 	void Start(){
 		switch(type) {
@@ -28,11 +29,24 @@ public class Ingredient : MonoBehaviour {
 
 		if (layer != "none") {
 			appliedLayer = GameObject.Find("PizzaObject").transform.Find(layer).gameObject;
-		}
-	}
 
-	public void AddThis(){
+            startingPos = new Vector3(
+                GameObject.Find(layer).transform.position.x,
+                GameObject.Find(layer).transform.position.y,
+                GameObject.Find(layer).transform.position.z
+            );
+        }
+
+    }
+
+    public void AddThis( float offset ){
 		appliedLayer.GetComponent<SpriteRenderer> ().enabled = true;
-	}
+
+        GameObject.Find(layer).transform.position = new Vector3(
+            startingPos.x + offset,
+            startingPos.y,
+            startingPos.z
+        );
+    }
 
 }

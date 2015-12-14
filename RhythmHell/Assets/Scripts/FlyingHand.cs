@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class FlyingHand : RhythmObject {
 
-	public const float PERFECT_OFFSET = 0.125f;
-	public const float OK_OFFSET = 0.25f;
+	public const float PERFECT_OFFSET = 0.15f;
+	public const float OK_OFFSET = 0.3f;
 
 	public float globalOffset = 0;
 	public float speed = 0;
@@ -28,6 +28,8 @@ public class FlyingHand : RhythmObject {
 	private int okCountCurrent = 0;
 	private int booCountCurrent = 0;
 
+    private int previousHitBeat = -1;
+
 	private int previousBeat;
 	private float previousHalfBeat;
 	private TicketType ticketType;
@@ -38,6 +40,7 @@ public class FlyingHand : RhythmObject {
     private bool enableInput;
 	private bool[] ingredientsToAdd;
 	private bool[] ingredientsAdded;
+    private Ingredient[] ingredients;
 
 	// Use this for initialization
 	void Start () {
@@ -55,7 +58,8 @@ public class FlyingHand : RhythmObject {
         enableInput = false;
 		ingredientsToAdd = new bool[3];
 		ingredientsAdded = new bool[3];
-	 }
+        ingredients = new Ingredient[4]{ sauce, cheese, sausage, veggie };
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -67,6 +71,7 @@ public class FlyingHand : RhythmObject {
 		*/
 
 		int currentBeat = (int)beatMachine.GetBeatPosition();
+        float currentBeatPosition = beatMachine.GetBeatPosition();
 
 		// Only get the ticket on the first beat
 		if (currentBeat == 0) {
@@ -99,31 +104,44 @@ public class FlyingHand : RhythmObject {
 		//Checks the input
 		if (Input.GetKeyDown(KeyCode.Space) && enableInput)
 		{
-			// Add the ingredient
-			switch(currentBeat){
-			case 0:
-				sauce.AddThis();
-				break;
-			case 1:
-				cheese.AddThis();
-				ingredientsAdded[0] = true;
-				break;
-			case 2:
-				sausage.AddThis();
-				ingredientsAdded[1] = true;
-				break;
-			case 3:
-				veggie.AddThis();
-				ingredientsAdded[2] = true;
-				break;
-			default:
-				Time.timeScale = 0.0f;
-				break;
-			}
+            // The beat when the key was hit
+            float keyHitBeat = beatMachine.GetBeatPosition(beatMachine.globalOffset) % 1;
+            float offset = keyHitBeat;
 
+            if (offset > 0.5f)
+            {
+                offset -= 1;
+            }
 
-			// The beat when the key was hit
-			float keyHitBeat = beatMachine.GetBeatPosition(beatMachine.globalOffset) % 1;
+            float visualOffset = offset * 2;
+
+            if (previousHitBeat != currentBeat)
+            {
+                previousHitBeat = currentBeat;
+
+                // Add the ingredient
+                switch (currentBeat)
+                {
+                    case 0:
+                        sauce.AddThis(0);
+                        break;
+                    case 1:
+                        cheese.AddThis(visualOffset);
+                        ingredientsAdded[0] = true;
+                        break;
+                    case 2:
+                        sausage.AddThis(visualOffset);
+                        ingredientsAdded[1] = true;
+                        break;
+                    case 3:
+                        veggie.AddThis(visualOffset);
+                        ingredientsAdded[2] = true;
+                        break;
+                    default:
+                        Time.timeScale = 0.0f;
+                        break;
+                }
+            }
 
 			if (keyHitBeat < PERFECT_OFFSET || keyHitBeat > 1 - PERFECT_OFFSET)
 			{
@@ -242,10 +260,11 @@ public class FlyingHand : RhythmObject {
                     perfectCountCurrent = 0;
                     okCountCurrent = 0;
                     booCountCurrent = 0;
-					// Set next pizza ticket
-					// First argument of changeType needs to be null to get ticket
-					// to change based on integer argument
-					ticket.changeType(null, (beatMachine.GetMeasure() % 3) );
+                    previousHitBeat = -1;
+                    // Set next pizza ticket
+                    // First argument of changeType needs to be null to get ticket
+                    // to change based on integer argument
+                    ticket.changeType(null, (beatMachine.GetMeasure() % 3) );
                 }
             }
         }
