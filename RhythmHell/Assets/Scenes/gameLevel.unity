@@ -1785,7 +1785,8 @@ MonoBehaviour:
   sausage: {fileID: 1197512100}
   cheese: {fileID: 1149080387}
   sauce: {fileID: 1462756763}
-  ticket: {fileID: 0}
+  ticket: {fileID: 1521040643}
+  aheadTicket: {fileID: 2013599848}
   scoreText: {fileID: 839977627}
   readyText: {fileID: 1794080440}
 --- !u!1 &805006083
@@ -2258,6 +2259,7 @@ MonoBehaviour:
   sausageTicket: {fileID: 21300000, guid: 6509e96e00b9f4e41ba7a8d3c76914ed, type: 3}
   veggieTicket: {fileID: 21300000, guid: 9dd07ead1c6289a468f254fc7d847510, type: 3}
   type: Cheese
+  otherTicket: {fileID: 2013599848}
 --- !u!1 &1618374053
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,6 +4770,7 @@ MonoBehaviour:
   sausageTicket: {fileID: 21300000, guid: 6509e96e00b9f4e41ba7a8d3c76914ed, type: 3}
   veggieTicket: {fileID: 21300000, guid: 9dd07ead1c6289a468f254fc7d847510, type: 3}
   type: Cheese
+  otherTicket: {fileID: 0}
 --- !u!212 &2013599849
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4801,8 +4804,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2013599847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.07000017, y: 2.8900001, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: -4.69999981, y: 4, z: 0}
+  m_LocalScale: {x: 1.13640046, y: 1.13640046, z: .757600307}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6

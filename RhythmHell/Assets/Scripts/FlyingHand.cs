@@ -19,6 +19,7 @@ public class FlyingHand : RhythmObject {
 	public Ingredient cheese;
 	public Ingredient sauce;
 	public Ticket ticket;
+	public Ticket aheadTicket;
 	public Text scoreText;
     public Text readyText;
 
@@ -184,7 +185,9 @@ public class FlyingHand : RhythmObject {
             gameObject.transform.position = new Vector3(-8.0f, -4.0f + (float)(2 * beat), 0.0f);
 
             // Update ready text for first and second measures
-            if (measure == 0) { /*Don't need to actually update anything on first measure, just need to not go into else statement*/ }
+            if (measure == 0) { 
+				/*Don't need to actually update anything on first measure,
+				 * just need to not go into else statement*/ }
             else if (measure == 1)
             {
                 readyText.text = (4 - beat) + "!";

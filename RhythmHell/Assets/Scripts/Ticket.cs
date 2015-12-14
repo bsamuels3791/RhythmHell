@@ -13,6 +13,7 @@ public class Ticket : MonoBehaviour {
 	public Sprite sausageTicket;
 	public Sprite veggieTicket;
 	public string type = "Cheese";  // If no type is specified, default to cheese
+	public Ticket otherTicket;
 
 	private TicketType ticketObj;
 	private int CompletedTickets;
@@ -23,25 +24,31 @@ public class Ticket : MonoBehaviour {
 	}
 
 	public void changeType(string newType = null, int random = 10){
-		if(newType != null){
-			// Changing type
-			setType(newType);
-        }
-        else if (random != 10)
-        {
-			switch(random){
-			case 0:
-				setType("Cheese");
-				break;
-			case 1:
-				setType("Sausage");
-				break;
-			case 2:
-				setType("Veggie");
-				break;
-			}
+		if(otherTicket){
+			ticketObj = otherTicket.GetTicketType();
+			setType(ticketObj);
+			otherTicket.changeType(newType,random);
 		}else{
-			Debug.Log("no data passed into changeType");
+			if(newType != null){
+				// Changing type
+				setType(newType);
+	        }
+	        else if (random != 10)
+	        {
+				switch(random){
+				case 0:
+					setType("Cheese");
+					break;
+				case 1:
+					setType("Sausage");
+					break;
+				case 2:
+					setType("Veggie");
+					break;
+				}
+			}else{
+				Debug.Log("no data passed into changeType");
+			}
 		}
 	}
 
@@ -61,6 +68,20 @@ public class Ticket : MonoBehaviour {
 			ticketObj = TicketType.VEGGIE;
 			gameObject.GetComponent<SpriteRenderer> ().sprite = veggieTicket;
 			//SetSprite("ticket_veggie");
+			break;
+		}
+	}
+
+	void setType(TicketType newType){
+		switch (newType) {
+		case TicketType.CHEESE:
+			gameObject.GetComponent<SpriteRenderer> ().sprite = cheeseTicket;
+			break;
+		case TicketType.SAUSAGE:
+			gameObject.GetComponent<SpriteRenderer> ().sprite = sausageTicket;
+			break;
+		case TicketType.VEGGIE:
+			gameObject.GetComponent<SpriteRenderer> ().sprite = veggieTicket;
 			break;
 		}
 	}
