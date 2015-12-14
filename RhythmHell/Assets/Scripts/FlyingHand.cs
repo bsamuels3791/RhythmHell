@@ -40,8 +40,7 @@ public class FlyingHand : RhythmObject {
     private bool enableInput;
 	private bool[] ingredientsToAdd;
 	private bool[] ingredientsAdded;
-    private Ingredient[] ingredients;
-
+    
 	// Use this for initialization
 	void Start () {
 		// Start the previous beat 1 before the starting beat of the beat machine
@@ -58,8 +57,7 @@ public class FlyingHand : RhythmObject {
         enableInput = false;
 		ingredientsToAdd = new bool[3];
 		ingredientsAdded = new bool[3];
-        ingredients = new Ingredient[4]{ sauce, cheese, sausage, veggie };
-    }
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -71,8 +69,7 @@ public class FlyingHand : RhythmObject {
 		*/
 
 		int currentBeat = (int)beatMachine.GetBeatPosition();
-        float currentBeatPosition = beatMachine.GetBeatPosition();
-
+        
 		// Only get the ticket on the first beat
 		if (currentBeat == 0) {
 			if(beatMachine.GetMeasure() == 30){
@@ -254,7 +251,8 @@ public class FlyingHand : RhythmObject {
 
 					// Save counts before reset
 					GlobalRhythmControl.perfectCount += perfectCountCurrent; 
-					GlobalRhythmControl.okayCount += okCountCurrent;  
+					GlobalRhythmControl.okayCount += okCountCurrent;
+					GlobalRhythmControl.score = score;
 					// Reset on the measure
                     scoreText.text = "Score:  " + score.ToString();
                     perfectCountCurrent = 0;

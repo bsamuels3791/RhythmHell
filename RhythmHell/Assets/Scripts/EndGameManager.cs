@@ -33,6 +33,16 @@ public class EndGameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		// Check for Spacebar press
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Application.LoadLevel(2);
+		}
+		
+		// Check for 'R' release
+		if (Input.GetKeyUp(KeyCode.R))
+		{
+			Application.LoadLevel(1);
+		}
 	}
 }
